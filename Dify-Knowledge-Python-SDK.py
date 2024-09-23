@@ -14,10 +14,6 @@ class DifySdkClient:
         """
         self.api_key = api_key
         self.api_url = api_url
-        self.headers = {
-            "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json"
-        }
 
     def create_document_from_text(self, dataset_id, document_name, document_text, indexing_technique='high_quality',
                                   process_rule=None):
@@ -31,6 +27,10 @@ class DifySdkClient:
         :param process_rule: Processing rules for document creation.
         :return: Response containing document creation result.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/document/create_by_text"
         if process_rule is None:
             process_rule = {"mode": "automatic"}
@@ -40,7 +40,7 @@ class DifySdkClient:
             "indexing_technique": indexing_technique,
             "process_rule": process_rule
         }
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
 
@@ -56,6 +56,9 @@ class DifySdkClient:
         :param indexing_technique: Indexing method (high_quality or economy).
         :return: Response containing document creation result.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/document/create_by_file"
         if process_rule is None:
             process_rule = {"mode": "automatic"}
@@ -70,7 +73,7 @@ class DifySdkClient:
             "data": (None, data_string, 'text/plain'),
             "file": open(file_path, "rb")
         }
-        response = requests.post(url, headers=self.headers, files=files)
+        response = requests.post(url, headers=headers, files=files)
         response.raise_for_status()
         return response.json()
 
@@ -82,8 +85,11 @@ class DifySdkClient:
         :param limit: Number of results per page (default: 20).
         :return: List of datasets.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets?page={page}&limit={limit}"
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         return response.json().get('data', [])
 
@@ -95,12 +101,16 @@ class DifySdkClient:
         :param permission: Permission level (default: all_team_members).
         :return: Response containing dataset creation result.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets"
         data = {
             "name": name,
             "permission": permission
         }
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
 
@@ -111,8 +121,11 @@ class DifySdkClient:
         :param dataset_id: ID of the dataset to delete.
         :return: Response confirming deletion.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}"
-        response = requests.delete(url, headers=self.headers)
+        response = requests.delete(url, headers=headers)
         response.raise_for_status()
 
     def update_document_via_text(self, dataset_id, document_id, document_name=None, document_text=None, process_rule=None):
@@ -126,6 +139,10 @@ class DifySdkClient:
         :param process_rule: Processing rules (optional).
         :return: Response containing document update result.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/update_by_text"
         data = {}
         if document_name:
@@ -134,7 +151,7 @@ class DifySdkClient:
             data["text"] = document_text
         if process_rule:
             data["process_rule"] = process_rule
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
 
@@ -149,6 +166,9 @@ class DifySdkClient:
         :param process_rule: Processing rules (optional).
         :return: Response containing document update result.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/update_by_file"
         data = {}
         if document_name:
@@ -161,7 +181,7 @@ class DifySdkClient:
             "data": (None, data_string, 'text/plain'),
             "file": open(file_path, "rb")
         }
-        response = requests.post(url, headers=self.headers, files=files)
+        response = requests.post(url, headers=headers, files=files)
         response.raise_for_status()
         return response.json()
 
@@ -173,8 +193,11 @@ class DifySdkClient:
         :param batch: Batch ID of the document.
         :return: Indexing status of the document.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{batch}/indexing-status"
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         return response.json()
 
@@ -186,8 +209,11 @@ class DifySdkClient:
         :param document_id: ID of the document to delete.
         :return: Response confirming deletion.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}"
-        response = requests.delete(url, headers=self.headers)
+        response = requests.delete(url, headers=headers)
         response.raise_for_status()
 
     def get_docs(self, dataset_id, page=1, limit=20):
@@ -199,8 +225,11 @@ class DifySdkClient:
         :param limit: Number of documents per page (default: 20).
         :return: List of documents.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents?page={page}&limit={limit}"
-        response = requests.get(url, headers=self.headers)
+        response = requests.get(url, headers=headers)
         response.raise_for_status()
         return response.json().get('data', [])
 
@@ -213,9 +242,13 @@ class DifySdkClient:
         :param segments: List of segment data (content, answer, keywords).
         :return: Response confirming the segments were added.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/segments"
         data = {"segments": segments}
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
 
@@ -229,13 +262,17 @@ class DifySdkClient:
         :param status: Status for filtering (optional).
         :return: List of document segments.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/segments"
         params = {}
         if keyword:
             params['keyword'] = keyword
         if status:
             params['status'] = status
-        response = requests.get(url, headers=self.headers, params=params)
+        response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()
         return response.json()
 
@@ -248,8 +285,12 @@ class DifySdkClient:
         :param segment_id: ID of the segment to delete.
         :return: Response confirming the segment was deleted.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/segments/{segment_id}"
-        response = requests.delete(url, headers=self.headers)
+        response = requests.delete(url, headers=headers)
         response.raise_for_status()
 
     def update_document_segment(self, dataset_id, document_id, segment_id, content, answer=None, keywords=None, enabled=True):
@@ -265,6 +306,10 @@ class DifySdkClient:
         :param enabled: Whether the segment is enabled (default: True).
         :return: Response confirming the update.
         """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
         url = f"{self.api_url}/datasets/{dataset_id}/documents/{document_id}/segments/{segment_id}"
         segment_data = {"content": content, "enabled": enabled}
         if answer:
@@ -272,7 +317,7 @@ class DifySdkClient:
         if keywords:
             segment_data["keywords"] = keywords
         data = {"segment": segment_data}
-        response = requests.post(url, headers=self.headers, json=data)
+        response = requests.post(url, headers=headers, json=data)
         response.raise_for_status()
         return response.json()
 
