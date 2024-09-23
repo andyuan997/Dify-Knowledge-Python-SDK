@@ -18,7 +18,7 @@ cd dify-knowledge-sdk-python
 pip install requests
 ```
 
-## Exsample
+## Example
 ### Initialize the SDK
 ```python
 # Initialize the client with your API key
