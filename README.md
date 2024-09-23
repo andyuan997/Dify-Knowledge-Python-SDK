@@ -20,7 +20,7 @@ pip install requests
 
 ## Exsample
 ### Initialize the SDK
-```
+```python
 # Initialize the client with your API key
 api_key = 'your_api_key'
 api_url = 'your_api_url'
@@ -28,25 +28,25 @@ api_url = 'your_api_url'
 client = DifyClient(api_key, your_api_url)
 ```
 ### Create a Dataset
-```
+```python
 dataset_id = client.create_dataset('My New Dataset')
 print(f"Created dataset with ID: {dataset_id}")
 ```
 
 ### Create a Document from Text
-```
+```python
 document = client.create_document_from_text(dataset_id, 'Document Title', 'This is the content of the document.')
 print(f"Created document: {document}")
 ```
 
 ### Check Document Index Status
-```
+```python
 status = client.index_status(dataset_id, 'batch_id')
 print(f"Document index status: {status}")
 ```
 
 ### Add a Document Segment
-```
+```python
 segment = {
     "content": "This is the segment content.",
     "answer": "This is the segment answer.",
