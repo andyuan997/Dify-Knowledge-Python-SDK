@@ -60,4 +60,5 @@ print("Added segment to document.")
 Feel free to submit issues or pull requests. All contributions are welcome!
 
 ### License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
