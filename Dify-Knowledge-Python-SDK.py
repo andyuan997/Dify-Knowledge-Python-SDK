@@ -2,7 +2,7 @@ import json
 import requests
 
 class DifySdkClient:
-    def __init__(self, api_key, api_url='http://10.231.17.35/v1'):
+    def __init__(self, api_key, api_url):
         self.api_key = api_key
         self.api_url = api_url
         self.headers = {
@@ -147,3 +147,9 @@ class DifySdkClient:
         response = requests.post(url, headers=self.headers, json=data)
         response.raise_for_status()
         return response.json()
+
+if __name__ == "__main__":
+    api_key = 'your_api_key'
+    api_url = 'your_api_url'
+    
+    client = DifySdkClient(api_key, your_api_url)  
