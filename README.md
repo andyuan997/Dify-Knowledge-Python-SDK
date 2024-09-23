@@ -25,7 +25,7 @@ pip install requests
 api_key = 'your_api_key'
 api_url = 'your_api_url'
 
-client = DifyClient(api_key, your_api_url)
+client = DifySdkClient(api_key, your_api_url)
 ```
 ### Create a Dataset
 ```python
