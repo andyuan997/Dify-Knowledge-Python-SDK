@@ -13,8 +13,8 @@ A Python SDK for interacting with the Dify Knowledge Base API. This library prov
 To install the SDK, clone this repository and install the required `requests` package:
 
 ```bash
-git clone https://github.com/your-username/dify-knowledge-sdk-python.git
-cd dify-knowledge-sdk-python
+git clone https://github.com/andyuan997/Dify-Knowledge-Python-SDK.git
+cd Dify-Knowledge-Python-SDK
 pip install requests
 ```
 
